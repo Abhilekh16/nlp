@@ -1,0 +1,28 @@
+<html>
+	<head>
+	<style type="text/css">
+		tr,td {
+  		border: 1px solid black;
+		}
+		h1{
+			position: absolute;
+			right: 50%;
+		}
+		table{
+			position: absolute;
+			top:20%;
+			right: 50%;
+		}		
+		
+				
+	</style>
+</head>
+    <body>
+        <h1>Result</h1>
+        <table>
+        {% for data in result %}
+        <tr><td>{{ data }}</td></tr>
+        {% endfor %}
+    </table>
+    </body>
+</html>

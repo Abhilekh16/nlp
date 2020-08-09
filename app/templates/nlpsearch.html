@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="{{ url_for('static',filename='artyom.window.min.js') }}"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <style>
+     #search{
+        font-family: Nunito;
+        font-size: 30px;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        background-color: #b3ffe6;
+        width: 700px;
+        height: 50px;
+     }
+     .cover{
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+        width: 700px;
+    padding: 20px;
+    margin: -83px auto 0 auto;
+    background-color: #b3ffe6;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px #ccffff, 0 0 0 20px #ffffffeb;
+     }
+    #start{
+        position:absolute;
+        top: 35%;
+        left:30%;
+        right:0;
+    }
+    #reset{
+        position:absolute;
+        top:35%;
+        left:40%;
+        right: 0;
+    }
+    #submit{
+        position:absolute;
+        top:35%;
+        left:50%;
+        right: 0;
+    }
+    #query{
+      position: absolute;
+      top:35%;
+      left:60%;
+      right: 0;
+    }
+    
+    button,#submit,#query{
+  background-color: #944dff;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+ </style>
+</head>
+<body>
+
+    <form action="" method="Post">
+    <div class="cover">
+	<input type="text" id="search" placeholder="Speak here...." name="search" size="100">
+</div>
+    <br>
+	<button id="start" type="button" onclick="speechRecog()">Start</button>
+	<button id="reset" type="button" onclick="stop()">Reset</button>
+	<input id="submit" type="submit" name="submit" value="Search">
+  <input id="query" type="submit" name="query" value="Display Query">
+	<br>
+    </form>
+</body>
+<script>
+	const artyom =new Artyom();
+	let startArtyom = ()=>{
+            artyom.initialize({
+                lang:"en-US",
+                debug:true,
+                continuous:false,
+                listen:true,
+                speed:.8
+            });
+            
+        }
+       
+
+	 var setting = {
+    continuous:true, // Enable continuous if HTTPS connection
+    onResult:function(text){
+    	if(text!=""){
+            $('#search').val(text);
+           // result=text
+        }
+        // Do something with the text
+    },
+    onStart:function(){
+        console.log("Dictation started by the user");
+     	var result="";
+    },
+    onEnd:function(){
+       // $('#search').val(result);
+        
+    }
+};
+var UserDictation = artyom.newDictation(setting); 
+	function speechRecog(){
+		
+
+UserDictation.start();
+
+    
+	
+}
+	function stop(){
+        $('#search').val(" ");
+		UserDictation.stop();
+	}
+  
+
+</script>
+</html>
